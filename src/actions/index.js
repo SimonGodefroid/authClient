@@ -1,3 +1,4 @@
+// action creators file
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 
@@ -16,7 +17,7 @@ export function signinUser({ email, password }) {
 			.then(response => {
 				// If request is good...
 				// - Update state to indicate user is authenticated
-				dispatch({ type: AUTH_USER, payload: '' });
+				dispatch({ type: AUTH_USER });
 				// - Save the JWT token
 				localStorage.setItem('token', response.data.token);
 				// - redirect to the route '/feature'
@@ -35,4 +36,9 @@ export function authError(error) {
 		type: AUTH_ERROR,
 		payload: error
 	};
+}
+
+export function signOutUser() {
+	localStorage.removeItem('token');
+	return { type: UNAUTH_USER };
 }
